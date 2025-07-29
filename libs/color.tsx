@@ -1,8 +1,11 @@
 //- libs/color-generator.tsx
 
-export const getRandomHexColor = (): string => {
+export const getRandomHexColor = (init?: boolean): string => {
+  if (init) {
+    return '#ffffff';
+  }
+  
   const color = Math.floor(Math.random() * 16777215).toString(16);
-
   return `#${color.padStart(6, '0')}`;
 };
 

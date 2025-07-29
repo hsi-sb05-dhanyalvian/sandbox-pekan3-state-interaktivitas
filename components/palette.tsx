@@ -3,6 +3,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import {isMobile} from 'react-device-detect';
 import { getRandomHexColor, isColorDark } from '@/libs/color';
 import { LockKeyhole, LockKeyholeOpen, Copy, ClipboardCheck } from 'lucide-react';
 
@@ -17,7 +18,7 @@ const PaletteComp = () => {
   
   useEffect(() => {
     const initialColors = Array.from({ length: totalColors }, () => ({
-      hex: getRandomHexColor(),
+      hex: getRandomHexColor(true),
       locked: false,
     }));
     setColors(initialColors);
@@ -74,7 +75,7 @@ const PaletteComp = () => {
   };
 
   const handleReset = () => {
-    const newColors = colors.map(color => ({ ...color, locked: false }));
+    const newColors = colors.map(color => ({ hex: '#ffffff', locked: false }));
     setColors(newColors);
   };
 
@@ -104,7 +105,7 @@ const PaletteComp = () => {
             >
               <button
                 title={color.locked ? 'Klik untuk membuka kunci' : 'Klik untuk mengunci'}
-                className={`cursor-pointer group-hover:opacity-100 ${color.locked ? 'opacity-100' : 'opacity-0'} ${isColorDark(color.hex) ? 'text-sky-200' : 'text-black'}`}
+                className={`cursor-pointer group-hover:opacity-100 ${color.locked || isMobile ? 'opacity-100' : 'opacity-0'} ${isColorDark(color.hex) ? 'text-sky-200' : 'text-black'}`}
                 onClick={() => toggleLock(index)}
               >
                 {color.locked ? (<LockKeyhole />) : (<LockKeyholeOpen />)}
