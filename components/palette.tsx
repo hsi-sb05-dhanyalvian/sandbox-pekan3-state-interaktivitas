@@ -3,7 +3,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import {isMobile} from 'react-device-detect';
+import { isMobile } from 'react-device-detect';
 import { getRandomHexColor, isColorDark } from '@/libs/color';
 import { LockKeyhole, LockKeyholeOpen, Copy, ClipboardCheck } from 'lucide-react';
 
@@ -15,7 +15,7 @@ interface Color {
 const PaletteComp = () => {
   const totalColors = Number(process.env.NEXT_PUBLIC_TOTAL_PALETTE) || 12;
   const [colors, setColors] = useState<Color[]>([]);
-  
+
   useEffect(() => {
     const initialColors = Array.from({ length: totalColors }, () => ({
       hex: getRandomHexColor(true),
@@ -75,7 +75,7 @@ const PaletteComp = () => {
   };
 
   const handleReset = () => {
-    const newColors = colors.map(color => ({ hex: '#ffffff', locked: false }));
+    const newColors = colors.map(() => ({ hex: '#ffffff', locked: false }));
     setColors(newColors);
   };
 
